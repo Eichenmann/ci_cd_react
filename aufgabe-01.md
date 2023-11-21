@@ -55,27 +55,78 @@
 
 5. **AWS CLI Profil:**
    - Wie überprüft man vorhandene AWS CLI-Profile?
+      - Um die vorhandenen AWS CLI-Profile zu überprüfen, können Sie den Befehl [aws configure list-profiles] verwenden. Dieser Befehl listet alle Profile auf, die in Ihren AWS-Konfigurations- und Anmeldeinformationen-Dateien vorhanden sind   
 
 6. **AWS S3-Bucket mit Terraform:**
    - Welche Konfigurationen sind für die AWS S3-Website notwendig?
+   1. S3-Bucket erstellen mit [aws_s3_bucket] Ressourcenblock in Terraform-Datei und die Zugriffssteuerungsliste (ACL) auf "public-read" setzen, damit die Dateien öffentlich zugänglich sind
+   2. Konfigurieren der S3-Website: Die Website-Konfiguration muss für den S3-Bucket eingerichtet werden. Dazu gehört die Festlegung der Index- und Fehlerdokumente für die Website. Dies kann mit dem website-Block innerhalb des aws_s3_bucket Ressourcenblocks der Terraform-Datei gemacht werden.
+   3. Erstellen der CloudFront-Distribution: Um die Performance Ihrer Website zu verbessern und SSL (für HTTPS) zu unterstützen, sollten der CloudFront-Distribution erstellen und sie so konfigurieren, dass sie auf Ihren S3-Bucket zeigt. Dies kann mit dem [aws_cloudfront_distribution] Ressourcenblock in Ihrer Terraform-Datei gemacht werden
+   4. Konfigurieren der Route 53-Datensätze: Schließlich muss die AWS Route 53-Datensätze erstellen, um Ihre Domain auf Ihre CloudFront-Distribution zu zeigen. Dies kann mit dem [aws_route53_record] Ressourcenblock in Ihrer Terraform-Datei gemacht werden.
 
 7. **GitHub Actions und AWS-Keys:**
     - Warum ist es wichtig, AWS-Keys sicher zu behandeln?
+    Es ist wichtig, AWS-Keys sicher zu handhaben, um die Sicherheit Ihrer AWS-Ressourcen zu gewährleisten. Jeder, der Zugriff auf Ihre AWS-Keys hat, kann potenziell Zugriff auf alle AWS-Dienste erlangen, die mit diesen Schlüsseln verbunden sind. Dies könnte zu unerwünschten Änderungen in Ihrer Infrastruktur oder sogar zu Datenverlust führen. Daher ist es wichtig, diese Schlüssel sicher zu speichern und zu verwalten.
+
     - Wie fügt man AWS-Keys als Secrets in einem GitHub Repository hinzu?
+      1. Navigieren Sie zu Ihrem Repository auf GitHub.
+      2. Klicken Sie auf die Registerkarte "Settings" (Einstellungen).
+      3. Klicken Sie auf der linken Seite auf "Secrets".
+      4. Klicken Sie auf "New repository secret" (Neues Repository-Geheimnis).
+      5. Geben Sie einen Namen für das Secret ein (z.B. [AWS_ACCESS_KEY_ID] oder [AWS_SECRET_ACCESS_KEY]).
+      6. Geben Sie den entsprechenden Wert für das Secret ein (d.h. den tatsächlichen Access Key oder Secret Access Key).
+      7. Klicken Sie auf "Add secret" (Secret hinzufügen).
 
 8. **GitHub Actions und Node.js:**
     - Wie wird Node.js in einem GitHub Actions Workflow verwendet?
+      Node.js wird in einem GitHub Actions Workflow verwendet, um Node.js-basierte Projekte zu bauen, zu testen und zu deployen. Hier sind die grundlegenden Schritte, um Node.js in einem Workflow zu verwenden:
+
+      1. Node.js einrichten: Sie können die actions/setup-node Action verwenden, um eine spezifische Version von Node.js in Ihrem Workflow zu installieren. Sie können die gewünschte Node.js-Version als Eingabe für diese Action angeben.
+      2. Abhängigkeiten installieren: Sie können npm install oder npm ci verwenden, um die Projekt-Abhängigkeiten zu installieren. npm ci ist in der Regel schneller und wird in CI/CD-Umgebungen bevorzugt.
+      3. Bauen und Testen: Sie können npm run build verwenden, um Ihr Projekt zu bauen, und npm test, um Ihre Tests auszuführen.
 
 9. **Terraform-Version in GitHub Actions:**
     - Wie installiert man die richtige Terraform-Version in einem GitHub Actions Workflow?
+      Um die richtige Terraform-Version in einem GitHub Actions Workflow zu installieren, können Sie die hashicorp/setup-terraform GitHub Action verwenden. Diese Action ermöglicht es Ihnen, eine spezifische Version von Terraform in Ihrem Workflow zu installieren.
+      {{#markdown}}
+      ```
+      - name: HashiCorp - Setup Terraform
+      uses: hashicorp/setup-terraform@v3.0.0
+      with:
+         terraform_version: 1.0.0
+      ```
+      {{#markdown}}
+
 
 10. **GitHub Actions - Terraform Init und Apply:**
     - Wie führt man `terraform apply` in einem Workflow aus?
+      Um [terraform apply] in einem GitHub Actions Workflow auszuführen, können Sie den [run] Befehl in Ihrem Workflow verwenden.
+      {{#markdown}}
+      ```
+      - name: Terraform Init
+      run: terraform init
+
+      - name: Terraform Apply
+      run: terraform apply -auto-approve
+      ```
+      {{#markdown}}
 
 11. **AWS S3-Bucket Deployment:**
     - Welchen Befehl verwendet man, um Dateien in ein S3-Bucket zu synchronisieren?
+      `<section>aws s3 sync <source> <destination></section>`
+      Beispiel:
+      aws s3 sync ./my-files s3://my-bucket
+
 
 12. **GitHub Actions - Verwendung von Aktionen:**
     - Wie verwendet man eine externe Aktion in einem GitHub Actions Workflow?
+      Um eine externe Aktion in einem GitHub Actions Workflow zu verwenden, fügen Sie die uses Anweisung in einem Schritt Ihres Workflows hinzu. Die uses Anweisung sollte auf den Namen des Repositorys und den Namen der Aktion verweisen.
+
     - Wo findet man eine Sammlung von Aktionen die von anderen Usern definiert wurden?
+      - auf dem GitHub Marketplace finden
+
     - Gibt es bestimmte Aktionen, die häufig in CI/CD-Workflows verwendet werden?
+      - [actions/checkout]: Diese Aktion wird verwendet, um den Code Ihres Repositorys auszuchecken.
+      - [actions/setup-node]: Diese Aktion wird verwendet, um eine spezifische Version von Node.js in Ihrem Workflow zu installieren.
+      - [actions/setup-python]: Diese Aktion wird verwendet, um eine spezifische Version von Python in Ihrem Workflow zu installieren.
+      - [actions/setup-java]: Diese Aktion wird verwendet, um eine spezifische Version von Java in Ihrem Workflow zu installieren.
