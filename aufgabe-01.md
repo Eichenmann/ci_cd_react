@@ -49,8 +49,9 @@
       4. Verbesserung der Codequalität: Unit-Tests zwingen Entwickler dazu, kleineren, besser strukturierten und leichter wartbaren Code zu schreiben.
 
    - Wie führt man Unit-Tests in einer React-Anwendung aus?
-   1.Einrichten der Testumgebung: Installieren und konfigurieren Sie Ihre Testbibliotheken. Jest und React Testing Library sind weit verbreitet und gut dokumentiert.
-   2. Schreiben der Tests: Schreiben Sie Testfälle für Ihre Komponenten oder Funktionen. In jedem Testfall rendern Sie eine Komponente oder rufen eine Funktion mit bestimmten Eingabewerten auf und überprüfen dann das Ergebnis. Ausführen der Tests: Führen Sie Ihre Tests aus, indem Sie den Testbefehl in Ihrer Konsole ausführen (z.B. npm test oder yarn test). Jest wird die Tests finden und ausführen und dann einen Bericht mit den Ergebnissen ausgeben.
+      1.Einrichten der Testumgebung: Installieren und konfigurieren Sie Ihre Testbibliotheken. Jest und React Testing Library sind weit verbreitet und gut dokumentiert.
+      2. Schreiben der Tests: Schreiben Sie Testfälle für Ihre Komponenten oder Funktionen. In jedem Testfall rendern Sie eine Komponente oder rufen eine Funktion mit bestimmten Eingabewerten auf und überprüfen dann das Ergebnis. 
+      3. Ausführen der Tests: Führen Sie Ihre Tests aus, indem Sie den Testbefehl in Ihrer Konsole ausführen (z.B. npm test oder yarn test). Jest wird die Tests finden und ausführen und dann einen Bericht mit den Ergebnissen ausgeben.
 
 5. **AWS CLI Profil:**
    - Wie überprüft man vorhandene AWS CLI-Profile?
